@@ -36,19 +36,19 @@
 
 
 
-if (empty($wrrors)) {
+if (empty($errors)) {
     $to = $email;
     $subject = 'email enquiry';
     $emailMessage = 'You have received an email';
     $emailMessage += $message;
-    $headers = array (
-        'from' ==> 'itisjiah@gmail.com',
-        'Reply-To' ==> 'itisjiah@gmail.com',
-        'X-Mailer' ==> 'PHP/',
-    );
+    $headers = array(
+				'From' => 'itisjiah@gmail.com',
+				'Reply-To' => 'itisjiah@gmail.com',
+				'X-Mailer' => 'PHP/'.phpversion()
+			);
 
-    mail($to,);
-    header("Location: index.php");
+            mail($to,$subject,$emailSubject, $headers);
+			header('Location: index.php');
 
 }
 
