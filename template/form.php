@@ -1,6 +1,6 @@
 <!-- post  usually use post-->
 <!-- get : people get see. for serach form. serach data base -->
-<!-- enctype="multipart/form-data" IF you don't include it, whatever i,age, videos are not going to be uploaded-->
+<!-- enctype="multipart/form-data" IF you don't include it, whatever pictures, videos are not going to be uploaded-->
 
 <?php
 // we want to precess, validate and send
@@ -17,6 +17,9 @@
 
 
  ?>
+
+
+ <!-- when you make a form in php don;t forget to include name ="" or it's not going to work -->
 <form class="form-horizontal" method="post" action="love.php" enctype="multipart/form-data">
     <h2>Contact us about your query</h2>
   <div class="form-group">

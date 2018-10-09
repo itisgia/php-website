@@ -10,6 +10,8 @@
     //extract() will automatically create the above variables from the form data array
     extract($_POST);
     // var_dump($name);
+
+    //$errors is an empty array for now
     $errors = array();
 
 
@@ -18,14 +20,16 @@
       array_push($errors, 'Please enter a name');
     } else if(strlen($name) < 2){
       array_push($errors, 'Please enter at least two characters for your name');
-  } else if(strlen($name) > 30){
-      array_push($errors, 'Your name cannot be more than 30 characters');
+  } else if(strlen($name) > 20){
+      array_push($errors, 'Your name cannot be more than 20 characters');
     }
+
     if (!$email) {
         array_push($errors, 'Please enter an email');
     }  else if (!filter_var($email, FILTER_VALIDATE_EMAIL)){
         array_push($errors, 'Please enter a valid email');
     }
+
     if (!$message) {
         array_push($errors, 'Please enter a message');
     } else if (strlen($message) < 2) {
@@ -46,9 +50,10 @@ if (empty($errors)) {
 				'Reply-To' => 'itisjiah@gmail.com',
 				'X-Mailer' => 'PHP/'.phpversion()
 			);
-
+//mail is php function to send a mail
             mail($to,$subject,$emailSubject, $headers);
-			header('Location: index.php');
+
+			header('Location: index.php'); //redirect to page if everything is succeeded 
 
 }
 
@@ -67,8 +72,8 @@ if (empty($errors)) {
 
         <div class="cover-container">
           <div class="inner cover">
-            <h1 class="cover-heading">How to contact us</h1>
-            <p class="lead">Don't.</p>
+            <h1 class="cover-heading">Contact us</h1>
+            <p class="lead"></p>
             <?php
               if($_POST && !empty($errors)): ?>
                 <div class="alert alert-danger" role="alert">

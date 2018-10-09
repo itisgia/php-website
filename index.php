@@ -1,10 +1,13 @@
 <?php
-// include("template/header.php");
 
-//require() means if it cant find file, Don't run
+// include("template/header.php"); it's not too big of a deal then use include method
+
+//require() means if it cant find a file, Don't run it. Die
 
 $page = "home";
+
 $dec = "";
+
 require("template/header.php");
 
 
@@ -18,17 +21,9 @@ require("template/header.php");
    </p>
  </main>
  <?php
- // include("template/header.php");
-
- //require() means if it cant find file, Don't run
-
  require("template/footer.php");
 
-  ?>
+ ?>
 
-
-    <!-- Bootstrap core JavaScript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
   </body>
 </html>
