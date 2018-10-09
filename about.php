@@ -1,4 +1,12 @@
 <?php
+
+// http://image.intervention.io/getting_started/installation
+// include composer autoload
+require 'vendor/autoload.php';
+// import the Intervention Image Manager Class
+use Intervention\Image\ImageManager;
+
+
 // phpinfo();
 // die();
 $errors = array();
@@ -31,18 +39,52 @@ if(isset($_FILES["image"])) {
     }
 
 
-    $destination = "images/upload";
 
-    //If destination doesn't exits
-    if (! is_dir($destination)) {
-        mkdir("images/upload/" , 0777, true);
+
+    if (empty($errors)) {
+
+        $destination = "images/upload";
+
+        //If destination doesn't exits
+        if (! is_dir($destination)) {
+            mkdir("images/upload/" , 0777, true);
+        }
+
+        $newFileName = uniqid() .".".  $fileExt;
+        // move_uploaded_file($fileTmp, $destination."/".$newFileName);
+
+        $manager = new ImageManager();
+
+        $mainImage = $manager->make($fileTmp);
+        $mainImage->save($destination."/".$newFileName, 100);
+
+
+        $thumbnailImage = $manager->make($fileTmp);
+        $thumDestination = "images/upload/thumnails";
+
+        if (! is_dir($thumDestination)) {
+            mkdir("images/upload/thumnails", 0777, true);
+        }
+
+        // make tmp file
+        $thumnailImage = $manager ->make($fileTmp);
+
+        // 300 width , height: null
+        $thumnailImage->resize(300, null, function($constraint){
+            $constraint->aspectRatio();
+            $constraint->upsize();
+        });
+        //sav function has 2 properties. where and quality (100 means keep 100% quality)
+        $thumnailImage->save($thumDestination."/".$newFileName , 100);
+
+
+
     }
 
-    $newFileName = uniqid() .".". $fileExt;
-    move_uploaded_file($fileTmp, $destination."/".$newFileName);
 
 
-    die();
+
+
 
 }
 
@@ -58,18 +100,12 @@ require("template/header.php");
 ?>
 
 <main>
-    <!-- <form action="about.php" method="post" enctype="multipart/form-data">
+    <form method="post" action="about.php" enctype="multipart/form-data">
         <div class="form-group">
-            <label for="">Upload an image</label>
+            <label for="">Upload an Image</label>
             <input type="file" name="image" class="form-control-file">
         </div>
-        <button type="button" class="btn btn-outline-light btn-block" name="button">Submit</button>
-    </form> -->
-
-    <form action="about.php" method="post" enctype="multipart/form-data">
-        <label>Upload An Image</label>
-        <input type="file" name="image" />
-        <input type="submit" name="upload"/>
+        <button type="submit" class="btn btn-outline-light btn-block">Submit</button>
     </form>
 </main>
 
